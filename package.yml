@@ -4,8 +4,5 @@ depends:
 source:
     - src/trajectory_tracking.c
 
-templates:
-    Makefile.jinja: Makefile
-
 tests:
     - tests/trajectory_tracking_test.cpp
