@@ -1,0 +1,8 @@
+depends:
+    - test-runner
+
+source:
+    - src/trajectory_tracking.c
+
+tests:
+    - tests/trajectory_tracking_test.cpp
