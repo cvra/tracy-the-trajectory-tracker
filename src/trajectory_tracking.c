@@ -1,4 +1,5 @@
 
+#include <stdlib.h>
 #include <math.h>
 
 #include "trajectory_tracking.h"
@@ -20,6 +21,11 @@ static float param_g = DEFAULT_PARAM_G;
 
 uint8_t tracy_set_controller_params(float fancy_greek_c, float g)
 {
+    
+    if(g <= 0) {
+        return -1;
+    }
+
     param_fancy_greek_c = fancy_greek_c;
     param_g = g;
 
@@ -30,6 +36,18 @@ uint8_t tracy_linear_controller(const tracking_error_t * current_error,
                                 const reference_velocity_t * reference_velocity,
                                 feedback_rule_t * output)
 {
+    if(current_error == NULL) {
+        return -1;
+    }
+
+    if(reference_velocity == NULL) {
+        return -1;
+    }
+
+    if(output == NULL) {
+        return -1;
+    }
+
     float gain1 = 2 * param_fancy_greek_c;
     float tmp = reference_velocity->angular_velocity *
                 reference_velocity->angular_velocity;
