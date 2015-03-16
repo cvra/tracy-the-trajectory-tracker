@@ -28,9 +28,3 @@ TEST(FaultyInput, SetInvalidParams)
     CHECK(tracy_set_controller_params(0.6, 0.0f) != 0);
 }
 
-TEST(FaultyInput, NULLPointers)
-{
-    CHECK(tracy_linear_controller(NULL, &VELOCITY, &OUTPUT) != 0)
-    CHECK(tracy_linear_controller(&ERROR, NULL, &OUTPUT) != 0)
-    CHECK(tracy_linear_controller(&ERROR, &VELOCITY, NULL) != 0)
-}

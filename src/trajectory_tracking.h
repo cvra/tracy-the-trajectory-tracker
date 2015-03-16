@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 
-#define DEFAULT_PARAM_FANCY_GREEK_C (0.7f)
+#define DEFAULT_PARAM_DAMPING_COEFF (0.7f)
 #define DEFAULT_PARAM_G (60.0f)
 
 /**
@@ -31,7 +31,7 @@ typedef struct {
  *
  */
 typedef struct {
-    float radial_velocity;
+    float tangential_velocity;
     float angular_velocity;
 } reference_velocity_t;
 
@@ -43,9 +43,8 @@ typedef struct {
  * @param reference_velocity velocity you want to be at currently
  * @param output pointer to memory to store result
  *
- * @return 0 if everything went fine, or something else on failure
  */
-uint8_t tracy_linear_controller(const tracking_error_t * current_error,
+void tracy_linear_controller(const tracking_error_t * current_error,
                                 const reference_velocity_t * reference_velocity,
                                 feedback_rule_t * output);
 
@@ -57,6 +56,6 @@ uint8_t tracy_linear_controller(const tracking_error_t * current_error,
  *
  * @return 0 on success, or something else on failure
  */
-uint8_t tracy_set_controller_params(float param_fancy_greek_c, float param_g);
+uint8_t tracy_set_controller_params(float param_damping_coeff, float param_g);
 
 #endif
