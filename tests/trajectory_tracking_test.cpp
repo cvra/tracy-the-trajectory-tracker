@@ -1,8 +1,16 @@
 
 #include "CppUTest/TestHarness.h"
 
-TEST_GROUP(DUMMY)
+extern "C" {
+#include "../src/trajectory_tracking.h"
+}
+
+TEST_GROUP(FaultyInput)
 {
+    tracking_error_t ERROR;
+    reference_velocity_t VELOCITY;
+    feedback_rule_t OUTPUT;
+
     void setup(void)
     {
 
@@ -14,7 +22,15 @@ TEST_GROUP(DUMMY)
     }
 };
 
-TEST(DUMMY, dummy)
+TEST(FaultyInput, SetInvalidParams)
 {
-    CHECK(true);
+    CHECK(tracy_set_controller_params(0.6, -1.0f) != 0);
+    CHECK(tracy_set_controller_params(0.6, 0.0f) != 0);
+}
+
+TEST(FaultyInput, NULLPointers)
+{
+    CHECK(tracy_linear_controller(NULL, &VELOCITY, &OUTPUT) != 0)
+    CHECK(tracy_linear_controller(&ERROR, NULL, &OUTPUT) != 0)
+    CHECK(tracy_linear_controller(&ERROR, &VELOCITY, NULL) != 0)
 }
