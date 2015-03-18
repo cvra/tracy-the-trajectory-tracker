@@ -42,7 +42,7 @@ void tracy_linear_controller(const tracking_error_t * current_error,
                 reference_velocity->angular_velocity;
     tmp += param_g * reference_velocity->tangential_velocity *
            reference_velocity->tangential_velocity;
-    gain1 *= sqrt(tmp);
+    gain1 *= sqrtf(tmp);
 
     float gain2 = param_g * fabs(reference_velocity->tangential_velocity);
 
