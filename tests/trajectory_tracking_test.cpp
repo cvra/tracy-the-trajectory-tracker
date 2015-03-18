@@ -7,10 +7,6 @@ extern "C" {
 
 TEST_GROUP(FaultyInput)
 {
-    tracking_error_t ERROR;
-    reference_velocity_t VELOCITY;
-    feedback_rule_t OUTPUT;
-
     void setup(void)
     {
 
