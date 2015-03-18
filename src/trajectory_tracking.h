@@ -12,9 +12,9 @@
  *
  */
 typedef struct {
-    float rule1;
-    float rule2;
-} feedback_rule_t;
+    float tangential_velocity;
+    float angular_velocity;
+} velocity_command_t;
 
 /**
  * represents a tracking error: reference_pos - current_pos
@@ -45,8 +45,8 @@ typedef struct {
  *
  */
 void tracy_linear_controller(const tracking_error_t * current_error,
-                                const reference_velocity_t * reference_velocity,
-                                feedback_rule_t * output);
+                             const reference_velocity_t * reference_velocity,
+                             velocity_command_t * output);
 
 /**
  * manually set parameters used by linear controller

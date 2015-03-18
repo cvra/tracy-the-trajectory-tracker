@@ -7,8 +7,8 @@
 
 /* public module prototypes */
 void tracy_linear_controller(const tracking_error_t * current_error,
-                                const reference_velocity_t * reference_velocity,
-                                feedback_rule_t * output);
+                             const reference_velocity_t * reference_velocity,
+                             velocity_command_t * output);
 
 uint8_t tracy_set_controller_params(float damping_coeff, float g);
 
@@ -33,10 +33,11 @@ uint8_t tracy_set_controller_params(float damping_coeff, float g)
 }
 
 void tracy_linear_controller(const tracking_error_t * current_error,
-                                const reference_velocity_t * reference_velocity,
-                                feedback_rule_t * output)
+                             const reference_velocity_t * reference_velocity,
+                             velocity_command_t * output)
 {
 
+    /* feedback control */
     float gain1 = 2 * param_damping_coeff;
     float tmp = reference_velocity->angular_velocity *
                 reference_velocity->angular_velocity;
@@ -48,7 +49,12 @@ void tracy_linear_controller(const tracking_error_t * current_error,
 
     float sign_v = reference_velocity->tangential_velocity < 0.0f ? -1.0f : 1.0f; 
 
-    output->rule1 = gain1 * current_error->x_error;
-    output->rule2 = sign_v * gain2 * current_error->y_error;
-    output->rule2 += gain1 * current_error->theta_error;
+    output->tangential_velocity = gain1 * current_error->x_error;
+    output->angular_velocity = sign_v * gain2 * current_error->y_error;
+    output->angular_velocity += gain1 * current_error->theta_error;
+
+    /* feedforward control */
+    output->tangential_velocity += reference_velocity->tangential_velocity *
+                                   cosf(current_error->theta_error);
+    output->angular_velocity += reference_velocity->angular_velocity;
 }
