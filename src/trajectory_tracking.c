@@ -6,9 +6,9 @@
 
 
 /* public module prototypes */
-void tracy_linear_controller(const tracking_error_t * current_error,
-                             const reference_velocity_t * reference_velocity,
-                             velocity_command_t * output);
+void tracy_linear_controller(const struct tracking_error * current_error,
+                             const struct robot_velocity * reference_velocity,
+                             struct robot_velocity * output);
 
 uint8_t tracy_set_controller_params(float damping_coeff, float g);
 
@@ -32,9 +32,9 @@ uint8_t tracy_set_controller_params(float damping_coeff, float g)
     return 0;
 }
 
-void tracy_linear_controller(const tracking_error_t * current_error,
-                             const reference_velocity_t * reference_velocity,
-                             velocity_command_t * output)
+void tracy_linear_controller(const struct tracking_error * current_error,
+                             const struct robot_velocity * reference_velocity,
+                             struct robot_velocity * output)
 {
 
     /* feedback control */

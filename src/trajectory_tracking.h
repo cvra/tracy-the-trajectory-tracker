@@ -8,32 +8,23 @@
 #define DEFAULT_PARAM_G (60.0f)
 
 /**
- * output of the linear controller
- *
- */
-typedef struct {
-    float tangential_velocity;
-    float angular_velocity;
-} velocity_command_t;
-
-/**
  * represents a tracking error: reference_pos - current_pos
  *
  */
-typedef struct {
+struct tracking_error {
     float x_error;
     float y_error;
     float theta_error;
-} tracking_error_t;
+};
 
 /**
- * velocity of reference in polar robot coordinates
+ * robot velocity in polar robot coordinates
  *
  */
-typedef struct {
+struct robot_velocity {
     float tangential_velocity;
     float angular_velocity;
-} reference_velocity_t;
+};
 
 /**
  * compute the linear controller output
@@ -44,9 +35,9 @@ typedef struct {
  * @param output pointer to memory to store result
  *
  */
-void tracy_linear_controller(const tracking_error_t * current_error,
-                             const reference_velocity_t * reference_velocity,
-                             velocity_command_t * output);
+void tracy_linear_controller(const struct tracking_error * current_error,
+                             const struct robot_velocity * reference_velocity,
+                             struct robot_velocity * output);
 
 /**
  * manually set parameters used by linear controller
