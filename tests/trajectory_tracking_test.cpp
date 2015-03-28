@@ -1,7 +1,11 @@
 
 #include "CppUTest/TestHarness.h"
 
-TEST_GROUP(DUMMY)
+extern "C" {
+#include "../src/trajectory_tracking.h"
+}
+
+TEST_GROUP(FaultyInput)
 {
     void setup(void)
     {
@@ -14,7 +18,9 @@ TEST_GROUP(DUMMY)
     }
 };
 
-TEST(DUMMY, dummy)
+TEST(FaultyInput, SetInvalidParams)
 {
-    CHECK(true);
+    CHECK(tracy_set_controller_params(0.6, -1.0f) != 0);
+    CHECK(tracy_set_controller_params(0.6, 0.0f) != 0);
 }
+
