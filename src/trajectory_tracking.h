@@ -42,7 +42,7 @@ void tracy_linear_controller(const struct tracking_error * current_error,
 /**
  * manually set parameters used by linear controller
  *
- * @param param_fancy_greek_c no restrictions
+ * @param param_damping_coeff Must be between 0 and 1
  * @param param_g has to be > 0
  *
  * @return 0 on success, or something else on failure
