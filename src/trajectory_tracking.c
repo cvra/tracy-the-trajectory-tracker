@@ -58,3 +58,16 @@ void tracy_linear_controller(const struct tracking_error * current_error,
                                    cosf(current_error->theta_error);
     output->angular_velocity += reference_velocity->angular_velocity;
 }
+
+void tracy_global_error_to_local(struct tracking_error *error, float heading)
+{
+    float c, s, x, y;
+    c = cosf(heading);
+    s = sinf(heading);
+
+    x = error->x_error * c + error->y_error * s;
+    y = error->x_error * -s + error->y_error * c;
+
+    error->x_error = x;
+    error->y_error = y;
+}
