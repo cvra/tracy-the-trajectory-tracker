@@ -49,4 +49,10 @@ void tracy_linear_controller(const struct tracking_error * current_error,
  */
 uint8_t tracy_set_controller_params(float param_damping_coeff, float param_g);
 
+/** Converts an error struct from global frame to robot local (x and y only).
+ * @param error The error structure to convert.
+ * @param angle The heading of the robot, in radians.
+ */
+void tracy_global_error_to_local(struct tracking_error *error, float heading);
+
 #endif
